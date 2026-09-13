@@ -43,17 +43,17 @@ pipeline {
             }
         }
 
-        stage('Start Selenoid') {
-            steps {
-                sh '''
-                    docker compose pull || true
-                    docker compose up -d
+        // stage('Start Selenoid') {
+        //     steps {
+        //         sh '''
+        //             docker compose pull || true
+        //             docker compose up -d
 
-                    timeout 60 bash -c 'until curl -s http://selenoid:4444/status > /dev/null; do sleep 2; done'
-                    echo "Selenoid is up"
-                '''
-            }
-        }
+        //             timeout 60 bash -c 'until curl -s http://selenoid:4444/status > /dev/null; do sleep 2; done'
+        //             echo "Selenoid is up"
+        //         '''
+        //     }
+        // }
 
         stage('Run UI Tests') {
             steps {
