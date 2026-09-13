@@ -46,17 +46,11 @@ pipeline {
         stage('Start Selenoid') {
             steps {
                 sh '''
-                    # Останавливаем предыдущий запуск, если остался
-                    docker-compose -f docker-compose.selenoid.yml down || true
+                    docker compose -f docker-compose.selenoid.yml down || true
+                    docker compose -f docker-compose.selenoid.yml pull || true
+                    docker compose -f docker-compose.selenoid.yml up -d
 
-                    # Скачиваем образы браузеров из browsers.json
-                    docker-compose -f docker-compose.selenoid.yml pull || true
-
-                    # Поднимаем Selenoid + Selenoid UI
-                    docker-compose -f docker-compose.selenoid.yml up -d
-
-                    # Ждём, пока Selenoid будет готов
-                    timeout 60 bash -c 'until curl -s http://localhost:4444/status > /dev/null; do sleep 2; done'
+                    timeout 60 bash -c 'until curl -s http://selenoid:4444/status > /dev/null; do sleep 2; done'
                     echo "Selenoid is up"
                 '''
             }
@@ -74,16 +68,10 @@ pipeline {
 
     post {
         always {
-            // Публикуем Allure-отчёт
             allure includeProperties: false, jdk: '', results: [[path: 'allure-results']]
-
-            // Архив результатов и видео
             archiveArtifacts artifacts: 'allure-results/**', allowEmptyArchive: true
             archiveArtifacts artifacts: 'selenoid/video/**', allowEmptyArchive: true
-            archiveArtifacts artifacts: 'selenoid/logs/**', allowEmptyArchive: true
-
-            // Останавливаем Selenoid
-            sh 'docker-compose -f docker-compose.selenoid.yml down || true'
+            sh 'docker compose -f docker-compose.selenoid.yml down || true'
         }
     }
 }
