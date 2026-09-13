@@ -59,7 +59,7 @@ pipeline {
             steps {
                 sh '''
                     . .venv/bin/activate
-                    pytest tests/ui --alluredir=allure-results
+                    pytest tests/ --alluredir=allure-results
                 '''
             }
         }
