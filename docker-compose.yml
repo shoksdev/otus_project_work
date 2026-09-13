@@ -34,6 +34,8 @@ services:
       - "./selenoid/logs:/opt/selenoid/logs"
     environment:
       - OVERRIDE_VIDEO_OUTPUT_DIR=${PWD}/selenoid/video
+      - DOCKER_API_VERSION=1.54
+
     command:
       - "-conf"
       - "/etc/selenoid/browsers.json"
