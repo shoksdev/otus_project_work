@@ -46,7 +46,6 @@ pipeline {
         stage('Start Selenoid') {
             steps {
                 sh '''
-                    docker compose down || true
                     docker compose pull || true
                     docker compose up -d
 
