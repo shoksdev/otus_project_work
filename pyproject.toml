@@ -1,0 +1,12 @@
+# pyproject.toml
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B"]
+ignore = ["E501"]  # длинные строки в тестах — норма
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"

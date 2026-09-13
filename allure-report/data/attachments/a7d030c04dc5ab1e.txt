@@ -1,0 +1,4 @@
+[35mDEBUG   [0m urllib3.connectionpool:connectionpool.py:1062 Starting new HTTPS connection (1): restful-booker.herokuapp.com:443
+[35mDEBUG   [0m urllib3.connectionpool:connectionpool.py:544 https://restful-booker.herokuapp.com:443 "POST /booking HTTP/1.1" 200 200
+[35mDEBUG   [0m urllib3.connectionpool:connectionpool.py:1062 Starting new HTTPS connection (1): restful-booker.herokuapp.com:443
+[35mDEBUG   [0m urllib3.connectionpool:connectionpool.py:544 https://restful-booker.herokuapp.com:443 "DELETE /booking/4515 HTTP/1.1" 201 7
