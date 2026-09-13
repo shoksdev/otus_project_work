@@ -55,11 +55,11 @@ pipeline {
         //     }
         // }
 
-        stage('Run UI Tests') {
+        stage('Run Tests') {
             steps {
                 sh '''
                     . .venv/bin/activate
-                    pytest tests/ --alluredir=allure-results
+                    pytest tests/ui --alluredir=allure-results
                 '''
             }
         }
