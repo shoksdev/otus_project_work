@@ -46,9 +46,9 @@ pipeline {
         stage('Start Selenoid') {
             steps {
                 sh '''
-                    docker compose -f docker-compose.selenoid.yml down || true
-                    docker compose -f docker-compose.selenoid.yml pull || true
-                    docker compose -f docker-compose.selenoid.yml up -d
+                    docker compose down || true
+                    docker compose pull || true
+                    docker compose up -d
 
                     timeout 60 bash -c 'until curl -s http://selenoid:4444/status > /dev/null; do sleep 2; done'
                     echo "Selenoid is up"
@@ -71,7 +71,7 @@ pipeline {
             allure includeProperties: false, jdk: '', results: [[path: 'allure-results']]
             archiveArtifacts artifacts: 'allure-results/**', allowEmptyArchive: true
             archiveArtifacts artifacts: 'selenoid/video/**', allowEmptyArchive: true
-            sh 'docker compose -f docker-compose.selenoid.yml down || true'
+            sh 'docker compose down || true'
         }
     }
 }
