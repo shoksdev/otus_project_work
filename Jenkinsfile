@@ -37,7 +37,8 @@ pipeline {
             steps {
                 sh '''
                     . .venv/bin/activate
-                    bash scripts/lint.sh
+                    ruff format .
+                    ruff check --fix .
                 '''
             }
         }
